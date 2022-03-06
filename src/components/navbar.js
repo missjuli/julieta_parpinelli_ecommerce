@@ -1,6 +1,6 @@
 import NavbarItem from "./NavBarItem"
 import Logo from "./Logo"
-import CarWidget from "./CarWidget"
+import CartWidget from "./CartWidget"
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 const NavBar = () => {
@@ -19,15 +19,14 @@ const NavBar = () => {
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <div className="navbar">
-                            {links.map((link) => (
-                                <NavbarItem link={link} className="navbar-links"/>
+                            {links.map((link, index) => (
+                                <NavbarItem key={index} link={link} className="navbar-links"/>
                             ))}
-                            <CarWidget />
+                            <CartWidget startingPoint={0}/>
                         </div>
                     </Nav>
                 </Container>
             </Navbar>
-            {/*  */}
         </div>
     )
 }
