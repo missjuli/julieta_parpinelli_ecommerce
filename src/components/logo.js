@@ -1,7 +1,9 @@
-function Logo() {
-    return(
-        <img src="./assets/logo.png" alt="logo"/>
-    )
-}
+// import logo from '~/assets/logo.png';
 
-export default Logo
+// const Logo = () => {
+//     return  (
+//         <img src={logo} alt="logo"/>
+//     )
+// }
+
+// export default Logo
