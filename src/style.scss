@@ -1,8 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 * {
     // font-family: 'Varela Round';
     color: black;
+    background: #e2e2e2 !important;
+    font-family: 'Varela Round', sans-serif !important;
+}
+
+h1 {
+    font-size: 20px !important;
 }
 
 .header {
@@ -12,6 +19,13 @@
             margin-right: 50px;
             text-decoration: none;
             color: black;
+            &:hover{
+                border-bottom:  solid 2px black;
+            }
+            &:active{
+                border-bottom:  solid 2px black;
+                font-weight: 700;
+            }
         }
         .navbar-nav {
             margin: auto;
@@ -22,4 +36,17 @@
     display: flex;
     margin: auto;
     margin-top: 50px;
+}
+.logo {
+    max-width: 100px;
+    border: none !important;    
+}
+.modal-content .btn{
+    color: black !important;
+}
+.modal-body img {
+    max-width: 250px;
+    max-height: 150px;
+    display: flex;
+    margin: auto;
 }
