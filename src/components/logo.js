@@ -1,9 +1,7 @@
-// import logo from '~/assets/logo.png';
+const Logo = () => {
+    return  (
+        <img src="./assets/jazaar.png" alt="." className="logo"/>
+    )
+}
 
-// const Logo = () => {
-//     return  (
-//         <img src={logo} alt="logo"/>
-//     )
-// }
-
-// export default Logo
+export default Logo

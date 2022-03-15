@@ -1,7 +1,10 @@
+import { NavLink } from "react-router-dom"
+
 const NavbarItem = (props) => {
+    console.log(props)
     return (
         <>
-            <a href={props.link.href}> {props.link.name}</a>
+            <NavLink to={"/category/" + props.category.id}> {props.category.name}</NavLink>
         </>
     )
 }
