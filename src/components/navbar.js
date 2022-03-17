@@ -2,23 +2,20 @@ import NavbarItem from "./NavBarItem"
 import Logo from "./Logo"
 import CartWidget from "./CartWidget"
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { Link } from "react-router-dom";
 
 const NavBar = () => {
     const categories = [
-        {name:"Products", id: "1"},
-        {name:"Fabrics & Themes", id: "2"},
-        {name:"Packaging", id: "3"}
+        {name:"Cartucheras", categoryId: "1"},
+        {name:"Telas y diseños disponibles", categoryId: "2"},
+        {name:"Gift Boxes", categoryId: "3"}
     ]
 
     return(
         <div className="header">
             <Navbar variant="light">
                 <Container>
-                    <Navbar.Brand href="#home" className="d-flex">
-                        {/* <Link to="/"> */}
+                    <Navbar.Brand href="/" className="d-flex">
                             <Logo />
-                        {/* </Link> */}
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <div className="navbar">

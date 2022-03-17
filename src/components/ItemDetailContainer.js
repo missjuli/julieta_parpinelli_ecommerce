@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 const product =
     {
         id: 1,
+        categoryId: 1,
         itemName: "Cartuchera Zipper",
         details:'Cartuchera simple con cierre (15x25)',
         price: 300,
@@ -43,7 +44,6 @@ const ItemDetailContainer = (prop) => {
     
     const showModal = () => {
         setIsOpen(true);
-        console.log(prop)
     };
     
     const hideModal = () => {
