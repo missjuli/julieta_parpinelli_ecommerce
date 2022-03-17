@@ -5,6 +5,7 @@ import ItemList from "./ItemList"
 const productsBaseList = [
     {
         id: 1,
+        categoryId: 1,
         itemName: "Cartuchera Zipper",
         details:'Cartuchera simple con cierre (15x25)',
         price: 300,
@@ -17,6 +18,7 @@ const productsBaseList = [
 const productsFullList = [
     {
         id: 1,
+        categoryId: 1,
         itemName: "Cartuchera Zipper",
         details:'Cartuchera simple con cierre (15x25)',
         price: 300,
@@ -26,6 +28,7 @@ const productsFullList = [
     },
     {
         id: 2,
+        categoryId: 1,
         itemName: "Cartuchera Box",
         details:'Cartuchera vertical con cierre (15x20)',
         price: 400,
@@ -35,6 +38,7 @@ const productsFullList = [
     },
     {
         id: 3,
+        categoryId: 1,
         itemName: "Cartuchera rollo",
         details:'Cartuchera que se puede enrrollar (35x20)',
         price: 500,
@@ -42,29 +46,54 @@ const productsFullList = [
         stock: 53,
         itemImageUrl:"./assets/roll-bag.jpg",
     },
+    {
+        id: 4,
+        categoryId: 2,
+        itemName: "Estampa a rayas",
+        details:'Estampa a rayas tonos pastel (1mt)',
+        price: 1000,
+        startingPoint: 0,
+        stock: 15,
+        itemImageUrl:"./assets/stamp-stripes.jpg",
+    },
+    {
+        id: 5,
+        categoryId: 3,
+        itemName: "Giftbox - Baby",
+        details:'Giftbox para bebés. Contiene un muñeco de apego y un sonajero',
+        price: 1500,
+        startingPoint: 0,
+        stock: 3,
+        itemImageUrl:"./assets/giftbox-1.jpg",
+    },
 ]
 
 const ItemListContainer = () => {
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
-    const {id} = useParams()
+    const {categoryId} = useParams()
+    console.log(categoryId)
 
     useEffect(() => {
         const promise = new Promise((res, rej)=>{
             setTimeout(()=>{
                 res(productsBaseList)
                 setLoading(false)
-            }, 3000)
+            }, 2000)
         })
     
         promise
         .then(()=>{
-            setProducts(productsFullList)
+            if(categoryId) {
+                setProducts(productsFullList.filter((product)=> product.categoryId == categoryId))
+            } else {
+                setProducts(productsFullList)
+            }
         })
         .catch(()=>{
             console.log('error')
         })
-    }, [id])
+    }, [categoryId])
 
     return (
         <>
