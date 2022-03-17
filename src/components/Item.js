@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Card, Button } from 'react-bootstrap';
-import ItemDetailContainer from './ItemDetailContainer';
+import { NavLink } from "react-router-dom"
 
 const Item = (prop) => {
 
@@ -40,7 +40,11 @@ const Item = (prop) => {
                     <Button variant="primary mx-2 mt-2 d-block w-100 text-black" onClick={addToCart}>
                         Agregar al carrito
                     </Button>
-                    <ItemDetailContainer product={prop.product}/>
+                    <NavLink to={`/product/${prop.product.id}`}>
+                        <Button variant="primary mx-2 mt-2 d-block w-100 text-black">
+                            Ver detalles
+                        </Button>
+                    </NavLink>
                 </Card.Body>
             </Card>
         </>
