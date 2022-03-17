@@ -2,19 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ItemList from "./ItemList"
 
-const productsBaseList = [
-    {
-        id: 1,
-        categoryId: 1,
-        itemName: "Cartuchera Zipper",
-        details:'Cartuchera simple con cierre (15x25)',
-        price: 300,
-        startingPoint: 0,
-        stock: 10,
-        itemImageUrl:"./assets/zipperbag.jpg",
-    },
-]
-
 const productsFullList = [
     {
         id: 1,
@@ -72,22 +59,21 @@ const ItemListContainer = () => {
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
     const {categoryId} = useParams()
-    console.log(categoryId)
 
     useEffect(() => {
         const promise = new Promise((res, rej)=>{
             setTimeout(()=>{
-                res(productsBaseList)
+                res(productsFullList)
                 setLoading(false)
             }, 2000)
         })
     
         promise
-        .then(()=>{
+        .then((data)=>{
             if(categoryId) {
-                setProducts(productsFullList.filter((product)=> product.categoryId == categoryId))
+                setProducts(data.filter((product)=> product.categoryId == categoryId))
             } else {
-                setProducts(productsFullList)
+                setProducts(data)
             }
         })
         .catch(()=>{
