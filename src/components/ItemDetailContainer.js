@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
+import { Button } from 'react-bootstrap';
+import { NavLink } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
+import ItemCount from "./ItemCount"
 
 // const [loading, setLoading] = useState(true)
 
@@ -12,7 +15,7 @@ const product =
         price: 300,
         startingPoint: 0,
         stock: 5,
-        itemImageUrl:'./assets/zipperbag.jpg',
+        itemImageUrl:'../assets/zipperbag.jpg',
     }
 
 const productPromise = new Promise((res)=>
@@ -26,10 +29,15 @@ const productPromise = new Promise((res)=>
 const ItemDetailContainer = (prop) => {
     
     const [product, setProduct] = useState([])
-    const [isOpen, setIsOpen] = useState(false);
+    const [itemsOnCart, setItemsOnCart] = useState(false);
 
-    const getProduct = ()=>{
+    const getProduct = () => {
         return productPromise
+    }
+
+    const onAdd = (counter) => {
+        console.log(counter)
+        setItemsOnCart(true)
     }
 
     useEffect(()=>{
@@ -44,6 +52,16 @@ const ItemDetailContainer = (prop) => {
         <>
             <div className="m-5">
                 <ItemDetail product={product} />
+                <div>
+                    {itemsOnCart
+                        ?   <NavLink to={`/cart`}>
+                                <Button variant="primary mx-2 mt-2 d-block w-100 text-black">
+                                   Ir al carrito de compras
+                                </Button>
+                            </NavLink>
+                        :   <ItemCount startingPoint={product.startingPoint} stock={product.stock} onAdd={onAdd}/>
+                    }
+                </div>
             </div>
         </>
     )
