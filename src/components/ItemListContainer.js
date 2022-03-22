@@ -11,7 +11,7 @@ const productsFullList = [
         price: 300,
         startingPoint: 0,
         stock: 10,
-        itemImageUrl:"./assets/zipperbag.jpg",
+        itemImageUrl:"../assets/zipperbag.jpg",
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ const productsFullList = [
         price: 400,
         startingPoint: 0,
         stock: 15,
-        itemImageUrl:"./assets/vertical-bag.jpg",
+        itemImageUrl:"../assets/vertical-bag.jpg",
     },
     {
         id: 3,
@@ -31,7 +31,7 @@ const productsFullList = [
         price: 500,
         startingPoint: 0,
         stock: 53,
-        itemImageUrl:"./assets/roll-bag.jpg",
+        itemImageUrl:"../assets/roll-bag.jpg",
     },
     {
         id: 4,
@@ -41,7 +41,7 @@ const productsFullList = [
         price: 1000,
         startingPoint: 0,
         stock: 15,
-        itemImageUrl:"./assets/stamp-stripes.jpg",
+        itemImageUrl:"../assets/stamp-stripes.jpg",
     },
     {
         id: 5,
@@ -51,7 +51,7 @@ const productsFullList = [
         price: 1500,
         startingPoint: 0,
         stock: 3,
-        itemImageUrl:"./assets/giftbox-1.jpg",
+        itemImageUrl:"../assets/giftbox-1.jpg",
     },
 ]
 
@@ -61,7 +61,7 @@ const ItemListContainer = () => {
     const {categoryId} = useParams()
 
     useEffect(() => {
-        const promise = new Promise((res, rej)=>{
+        const promise = new Promise((res)=>{
             setTimeout(()=>{
                 res(productsFullList)
                 setLoading(false)

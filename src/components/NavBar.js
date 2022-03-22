@@ -15,7 +15,7 @@ const NavBar = () => {
             <Navbar variant="light">
                 <Container>
                     <Navbar.Brand href="/" className="d-flex">
-                        <img src="./assets/jazaar.png" alt="." className="logo"/>
+                        <img src="../assets/jazaar.png" alt="." className="logo"/>
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <div className="navbar">

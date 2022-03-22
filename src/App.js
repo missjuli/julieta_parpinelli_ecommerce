@@ -1,5 +1,4 @@
 import NavBar from "./components/NavBar"
-import ItemListContainer from "./components/ItemListContainer"
 import Main from "./components/Main"
 import { BrowserRouter } from "react-router-dom"
 
