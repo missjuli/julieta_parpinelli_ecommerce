@@ -1,7 +1,7 @@
 import NavBar from "./components/NavBar"
 import Main from "./components/Main"
 import { BrowserRouter } from "react-router-dom"
-import { context } from "./CartContext"
+import { context } from "./components/CartContext"
 
 function App() {
     return(
