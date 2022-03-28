@@ -4,9 +4,7 @@ import { NavLink } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
 import ItemCount from "./ItemCount"
 
-// const [loading, setLoading] = useState(true)
-
-const product =
+const productOne =
     {
         id: 1,
         categoryId: 1,
@@ -18,51 +16,49 @@ const product =
         itemImageUrl:'../assets/zipperbag.jpg',
     }
 
-const productPromise = new Promise((res)=>
-    setTimeout(()=>{
-        res(product)
-        // setLoading(false)
-    }, 3000)
-) 
-    
-
 const ItemDetailContainer = (prop) => {
-    
     const [product, setProduct] = useState([])
     const [itemsOnCart, setItemsOnCart] = useState(false);
+    const [loading, setLoading] = useState(true)
 
-    const getProduct = () => {
-        return productPromise
-    }
+useEffect(()=>{
+    const productPromise = new Promise((res)=>{
+        setTimeout(()=>{
+                res(productOne)
+            }, 2000)
+    })
+    productPromise
+    .then((productData)=>{
+        setProduct(productData)
+        if(product.startingPoint || product.stock){
+            setLoading(false)
+        }
+    })
+    .catch(()=> console.log('error'))
+    })
 
     const onAdd = (counter) => {
-        console.log(counter)
         setItemsOnCart(true)
     }
 
-    useEffect(()=>{
-        getProduct()
-        .then((productData)=>
-            setProduct(productData))
-            // setLoading(false)
-        .catch((error)=> console.log(error))
-    })
-
     return (
         <>
-            <div className="m-5">
+        {loading
+        ? <p> Cargando. Aguarde por favor.</p>
+        : <div className="m-5">
                 <ItemDetail product={product} />
                 <div>
                     {itemsOnCart
                         ?   <NavLink to={`/cart`}>
                                 <Button variant="primary mx-2 mt-2 d-block w-100 text-black">
-                                   Ir al carrito de compras
+                                Ir al carrito de compras
                                 </Button>
                             </NavLink>
                         :   <ItemCount startingPoint={product.startingPoint} stock={product.stock} onAdd={onAdd}/>
                     }
                 </div>
             </div>
+        }
         </>
     )
 }
