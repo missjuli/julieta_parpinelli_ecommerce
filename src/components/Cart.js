@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { context } from "./CartContext"
+import Provider from "./CartContext"
 
 const Cart = (prop) => {
-    const contextResponse = useContext(context)
+    const contextResponse = useContext(Provider)
     console.log(contextResponse)
     const itemsOnCart = contextResponse.cartItems
     const totalItems = contextResponse.totalAmountOfItems
