@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom"
 import ItemListContainer from "./ItemListContainer"
 import ItemDetailContainer from "./ItemDetailContainer"
 import Cart from "./Cart"
+import Provider from "./CartContext";
+
+console.log(Provider)
 
 const Main = () => {
     return (
