@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
 import ItemCount from "./ItemCount"
-import CartContext from "./CartContext";
+// import CartContext from "./CartContext";
 
 const productOne =
     {
@@ -21,7 +21,7 @@ const ItemDetailContainer = (prop) => {
     const [product, setProduct] = useState([])
     const [itemsOnCart, setItemsOnCart] = useState(false);
     const [loading, setLoading] = useState(true)
-    const {addItem} = useContext(CartContext)
+    // const {addItem} = useContext(CartContext)
 
 useEffect(()=>{
     const productPromise = new Promise((res)=>{

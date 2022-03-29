@@ -6,7 +6,6 @@ import CartContext from "./CartContext"
 
 const Cart = () => {
     const contextResponse = useContext(CartContext)
-    console.log(contextResponse)
     const itemsOnCart = contextResponse?.cartItems
     const totalItems = contextResponse?.totalAmountOfItems
 
