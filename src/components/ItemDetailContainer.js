@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
 import ItemCount from "./ItemCount"
+// import CartContext from "./CartContext";
 
 const productOne =
     {
@@ -20,6 +21,7 @@ const ItemDetailContainer = (prop) => {
     const [product, setProduct] = useState([])
     const [itemsOnCart, setItemsOnCart] = useState(false);
     const [loading, setLoading] = useState(true)
+    // const {addItem} = useContext(CartContext)
 
 useEffect(()=>{
     const productPromise = new Promise((res)=>{
@@ -50,7 +52,7 @@ useEffect(()=>{
                 <div>
                     {itemsOnCart
                         ?   <NavLink to={`/cart`}>
-                                <Button variant="primary mx-2 mt-2 d-block w-100 text-black">
+                                <Button variant="primary mx-2 mt-2 text-black">
                                 Ir al carrito de compras
                                 </Button>
                             </NavLink>

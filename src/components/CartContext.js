@@ -5,8 +5,8 @@ const { Provider } = context
 
 const CartContext = ({children}) => {
     const [cartContent, setCartContent] = useState([])
-    const [totalAmount, setTotalAmount] = useState(0)
-    const [product, setProduct] = useState()
+    // const [totalAmount, setTotalAmount] = useState(0)
+    const [product, setProduct] = useState( )
     
     const removeItem = (id) => {}
 
@@ -16,6 +16,7 @@ const CartContext = ({children}) => {
         } else {
             const cart = cartContent.slice(0)
             cart.push(product)
+            setCartContent(cart)
         }
     }
 
@@ -30,7 +31,11 @@ const CartContext = ({children}) => {
 
     const contextValue = {
         cartItems: [],
-        totalAmountOfItems: 0
+        totalAmountOfItems: 0,
+        addItem,
+        clear,
+        removeItem,
+        isInCart
     }
 
     return (
