@@ -3,7 +3,7 @@ import Main from "./components/Main"
 import { BrowserRouter } from "react-router-dom"
 import Provider from "./components/CartContext"
 
-function App() {
+const App = () => {
     return(
         <Provider>
             <BrowserRouter>

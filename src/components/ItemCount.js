@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Button } from 'react-bootstrap';
+import { context } from "./CartContext";
 
-const ItemCount = (prop) => {
-    const [counter, setCounter] = useState(prop.startingPoint)
-    const [stock] = useState(prop.stock)
+const ItemCount = ({stock, startingPoint, id, onAdd}) => {
+    const [counter, setCounter] = useState(startingPoint)
+    const [counterStock] = useState(stock)
+    const {addItem} = useContext(context)
 
-    const addItem = () => {
-        if (stock > counter) {
+    const addItemToCounter = () => {
+        if (counterStock > counter) {
             setCounter(counter+1)
         }
     }
@@ -18,7 +20,8 @@ const ItemCount = (prop) => {
     }
 
     const addToCart = () => {
-        prop.onAdd(counter)
+        onAdd(counter)
+        addItem(id, counter)
     }
 
     return (
@@ -26,13 +29,13 @@ const ItemCount = (prop) => {
             <div>
                 <p> Usted ha seleccionado {counter} </p>
             </div>
-            <Button variant="outline-primary mx-2" onClick={addItem}>
+            <Button variant="outline-primary mx-2" onClick={addItemToCounter}>
                 Agregar una unidad
             </Button>
             <Button variant="outline-primary mx-2" onClick={deleteItem}>
                 Eliminar una unidad
             </Button>
-            <Button variant="outline-primary mx-2 text-black" onClick={addToCart}>
+            <Button variant="outline-primary mx-2 text-black" onClick={addToCart(id)}>
                 Agregar al carrito
             </Button>
         </>

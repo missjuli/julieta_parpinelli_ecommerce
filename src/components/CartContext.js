@@ -8,15 +8,16 @@ const CartContext = ({children}) => {
     // const [totalAmount, setTotalAmount] = useState(0)
     const [product, setProduct] = useState( )
     
-    const removeItem = (id) => {}
+    const removeItem = (id) => {
+        setCartContent(cartContent.filter(p => p.product.id !== id))
+    }
 
     const addItem = (product, totalAmount) => {
+        const productAdded = {product, amount: totalAmount}
         if(isInCart(product.id)){
-            console.log(cartContent, product)
+            alert('Este producto ya fue añadido al carrito')
         } else {
-            const cart = cartContent.slice(0)
-            cart.push(product)
-            setCartContent(cart)
+            setCartContent([...cartContent, productAdded])
         }
     }
 
@@ -25,7 +26,7 @@ const CartContext = ({children}) => {
     }
 
     const isInCart = (id) => {
-        const itemOnCart = cartContent.find((item)=> item.id === product.id)
+        const itemOnCart = cartContent.find((cartItem)=> cartItem.id === id)
         return itemOnCart ? true : false
     }
 
