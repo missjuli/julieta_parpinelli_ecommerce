@@ -1,13 +1,15 @@
 import { useContext } from "react"
 import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom"
-import CartContext from "./CartContext"
+import { context } from "./CartContext"
 
 
 const Cart = () => {
-    const contextResponse = useContext(CartContext)
+    const contextResponse = useContext(context)
     const itemsOnCart = contextResponse?.cartItems
     const totalItems = contextResponse?.totalAmountOfItems
+
+    const {removeItem} = useContext(context)
 
     return (
         <>
@@ -19,7 +21,7 @@ const Cart = () => {
                         <p> {item.description} </p>
                         <p> $ {item.price} - {item.totalAmount} unidades</p>
                         <p> Total: $ {item.price * item.totalAmount} </p>
-                        <button>Delete Items</button>
+                        <button onClick={()=> removeItem(item.id)}>Delete Items</button>
                     </div>
                 ))
                 :   <div>

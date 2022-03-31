@@ -1,59 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { db } from "../Firebase"
+import { getDocs, collection, query, where } from "firebase/firestore"
 import ItemList from "./ItemList"
-
-const productsFullList = [
-    {
-        id: 1,
-        categoryId: 1,
-        itemName: "Cartuchera Zipper",
-        details:'Cartuchera simple con cierre (15x25)',
-        price: 300,
-        startingPoint: 0,
-        stock: 10,
-        itemImageUrl:"../assets/zipperbag.jpg",
-    },
-    {
-        id: 2,
-        categoryId: 1,
-        itemName: "Cartuchera Box",
-        details:'Cartuchera vertical con cierre (15x20)',
-        price: 400,
-        startingPoint: 0,
-        stock: 15,
-        itemImageUrl:"../assets/vertical-bag.jpg",
-    },
-    {
-        id: 3,
-        categoryId: 1,
-        itemName: "Cartuchera rollo",
-        details:'Cartuchera que se puede enrrollar (35x20)',
-        price: 500,
-        startingPoint: 0,
-        stock: 53,
-        itemImageUrl:"../assets/roll-bag.jpg",
-    },
-    {
-        id: 4,
-        categoryId: 2,
-        itemName: "Estampa a rayas",
-        details:'Estampa a rayas tonos pastel (1mt)',
-        price: 1000,
-        startingPoint: 0,
-        stock: 15,
-        itemImageUrl:"../assets/stamp-stripes.jpg",
-    },
-    {
-        id: 5,
-        categoryId: 3,
-        itemName: "Giftbox - Baby",
-        details:'Giftbox para bebés. Contiene un muñeco de apego y un sonajero',
-        price: 1500,
-        startingPoint: 0,
-        stock: 3,
-        itemImageUrl:"../assets/giftbox-1.jpg",
-    },
-]
 
 const ItemListContainer = () => {
     const [loading, setLoading] = useState(true)
@@ -61,20 +10,30 @@ const ItemListContainer = () => {
     const {categoryId} = useParams()
 
     useEffect(() => {
-        const promise = new Promise((res)=>{
-            setTimeout(()=>{
-                res(productsFullList)
-                setLoading(false)
-            }, 2000)
-        })
-    
-        promise
+        const productCollection = collection(db, "products")
+        const documents = getDocs(productCollection)
+        
+        documents
         .then((data)=>{
-            if(categoryId) {
-                setProducts(data.filter((product)=> product.categoryId == categoryId))
-            } else {
-                setProducts(data)
-            }
+
+            const aux = []
+            data.forEach((document)=>{
+                document.data()
+                const product = {
+                    id: document.id,
+                    ...document.data()
+                }
+
+                aux.push(product)
+                setProducts(aux)
+
+                if(categoryId) {
+                    const queryProductsByCategoryId = query(collection(db, "producs"),where(categoryId))
+                    setProducts(data.filter((product)=> product.categoryId == categoryId))
+                } else {
+                    setProducts(data)
+                }
+            })
         })
         .catch(()=>{
             console.log('error')
