@@ -10,34 +10,35 @@ const ItemListContainer = () => {
     const {categoryId} = useParams()
 
     useEffect(() => {
+        const queryProductsByCategoryId = query(collection(db, "producs"),where(categoryId))
         const productCollection = collection(db, "products")
-        const documents = getDocs(productCollection)
-        
-        documents
-        .then((data)=>{
-
-            const aux = []
-            data.forEach((document)=>{
-                document.data()
-                const product = {
-                    id: document.id,
-                    ...document.data()
-                }
-
-                aux.push(product)
-                setProducts(aux)
-
-                if(categoryId) {
-                    const queryProductsByCategoryId = query(collection(db, "producs"),where(categoryId))
-                    setProducts(data.filter((product)=> product.categoryId == categoryId))
-                } else {
-                    setProducts(data)
-                }
+        if(categoryId) {
+            getDocs(queryProductsByCategoryId)
+            .then((data)=>{
+                setProducts(
+                    data.docs.map(product=>
+                        ({
+                            products: product.data(),
+                            id: product.id,
+                        })
+                    )
+                )
             })
-        })
-        .catch(()=>{
-            console.log('error')
-        })
+            .catch(()=>{alert('error')})
+        } else {
+            getDocs(productCollection)
+            .then((data)=>{
+                setProducts(
+                    data.docs.map(product=>
+                        ({
+                            products: product.data(),
+                            id: product.id,
+                        })
+                    )
+                )
+            })
+            .catch(()=>{alert('error')})
+        }
     }, [categoryId])
 
     return (
