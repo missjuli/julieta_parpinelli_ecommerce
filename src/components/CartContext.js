@@ -5,7 +5,7 @@ const { Provider } = context
 
 const CartContext = ({children}) => {
     const [cartContent, setCartContent] = useState([])
-    // const [totalAmount, setTotalAmount] = useState(0)
+    const [totalAmount, setTotalAmount] = useState(0)
     const [product, setProduct] = useState( )
     
     const removeItem = (id) => {
@@ -17,7 +17,7 @@ const CartContext = ({children}) => {
         if(isInCart(product.id)){
             alert('Este producto ya fue añadido al carrito')
         } else {
-            setCartContent([...cartContent, productAdded])
+            setCartContent([...cartContent, { ...productAdded}])
         }
     }
 
@@ -32,6 +32,8 @@ const CartContext = ({children}) => {
 
     const contextValue = {
         cartItems: [],
+        product,
+        totalAmount,
         totalAmountOfItems: 0,
         addItem,
         clear,

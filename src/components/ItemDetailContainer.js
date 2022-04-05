@@ -1,32 +1,30 @@
 import { useContext, useEffect, useState } from "react"
 import { Button } from 'react-bootstrap';
+import { useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
 import ItemCount from "./ItemCount"
 import { context } from "./CartContext";
 import { db } from "../Firebase"
-import { getDoc, collection } from "firebase/firestore"
+import { where, query , collection, doc, getDocs } from "firebase/firestore"
 
 const ItemDetailContainer = (prop) => {
     const [product, setProduct] = useState([])
     const [itemsOnCart, setItemsOnCart] = useState(false);
     const [loading, setLoading] = useState(true)
     const {addItem} = useContext(context)
+    const {id} = useParams()
 
 useEffect(()=>{
     const productCollection = collection(db, "products")
-    const document = getDoc(productCollection)
+    const queryProductById = query(productCollection,where("id", "==", id))
+    const documents = getDocs(queryProductById)
     
-    document
-    .then((productData)=>{
-        setProduct(productData)
-        console.log(productData)
-        // if(product.startingPoint || product.stock){
-        //     setLoading(false)
-        // }
-    })
-    .catch(()=> console.log('error'))
-    })
+    documents
+    .then((data)=> setProduct(data.docs.map(doc=>doc.data())))
+    .catch((error)=> alert(error))
+    .finally(() => setLoading(false))
+}, [id])
 
     const onAdd = (counter) => {
         addItem(product, counter)

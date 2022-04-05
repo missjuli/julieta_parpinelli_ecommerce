@@ -10,34 +10,23 @@ const ItemListContainer = () => {
     const {categoryId} = useParams()
 
     useEffect(() => {
-        const queryProductsByCategoryId = query(collection(db, "producs"),where(categoryId))
-        const productCollection = collection(db, "products")
-        if(categoryId) {
-            getDocs(queryProductsByCategoryId)
-            .then((data)=>{
-                setProducts(
-                    data.docs.map(product=>
-                        ({
-                            products: product.data(),
-                            id: product.id,
-                        })
-                    )
-                )
-            })
-            .catch(()=>{alert('error')})
+        if(!categoryId) {
+            const productCollection = collection(db, "products")
+            const documents = getDocs(productCollection)
+            
+            documents
+            .then((data)=> setProducts(data.docs.map(doc=>doc.data())))
+            .catch((error)=> alert(error))
+            .finally(() => setLoading(false))
         } else {
-            getDocs(productCollection)
-            .then((data)=>{
-                setProducts(
-                    data.docs.map(product=>
-                        ({
-                            products: product.data(),
-                            id: product.id,
-                        })
-                    )
-                )
-            })
-            .catch(()=>{alert('error')})
+            const productCollection = collection(db, "products")
+            const queryProductsByCategoryId = query(productCollection,where("categoryId", "==", categoryId))
+            const documentsFiltered = getDocs(queryProductsByCategoryId)
+            
+            documentsFiltered
+            .then((data)=> setProducts(data.docs.map(doc=>doc.data())))
+            .catch((error)=> alert(error))
+            .finally(() => setLoading(false))
         }
     }, [categoryId])
 
