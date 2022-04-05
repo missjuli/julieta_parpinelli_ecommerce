@@ -1,8 +1,9 @@
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useContext } from "react"
 import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom"
+import { db } from "../Firebase";
 import { context } from "./CartContext"
-
 
 const Cart = () => {
     const contextResponse = useContext(context)
@@ -10,6 +11,18 @@ const Cart = () => {
     const totalItems = contextResponse?.totalAmountOfItems
 
     const {removeItem} = useContext(context)
+    const handleClick = () => {
+        const order = {
+            buyer: {},
+            items: {},
+            date: serverTimestamp(),
+            total: total,
+        }
+    }
+    const orderCollection = collection(db, "oder")
+    const itemsOrder = addDoc(orderCollection, order)
+
+    console.log(itemsOrder)
 
     return (
         <>
@@ -26,11 +39,11 @@ const Cart = () => {
                 ))
                 :   <div>
                         <p> No se han agregado productos al carrito</p>
-                        <NavLink to={`/`}>
+                        <Link to={`/cart`} onClick={handleClick}>
                             <Button variant="primary mx-2 mt-2 text-black">
                             Ir al carrito de compras
                             </Button>
-                        </NavLink>
+                        </Link>
                     </div>
                 }
         </>
