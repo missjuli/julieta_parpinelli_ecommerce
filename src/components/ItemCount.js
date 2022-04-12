@@ -19,10 +19,10 @@ const ItemCount = ({stock, startingPoint, id, onAdd}) => {
         }
     }
 
-    const addToCart = () => {
-        onAdd(counter)
-        addItem(id, counter)
-    }
+    // const addToCart = (counter) => {
+    //     onAdd(counter)
+    //     addItem(id, counter)
+    // }
 
     return (
         <>
@@ -35,7 +35,7 @@ const ItemCount = ({stock, startingPoint, id, onAdd}) => {
             <Button variant="outline-primary mx-2" onClick={deleteItem}>
                 Eliminar una unidad
             </Button>
-            <Button variant="outline-primary mx-2 text-black" onClick={addToCart(id)}>
+            <Button variant="outline-primary mx-2 text-black" onClick={()=>onAdd(counter)}>
                 Agregar al carrito
             </Button>
         </>

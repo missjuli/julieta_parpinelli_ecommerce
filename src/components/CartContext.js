@@ -13,11 +13,11 @@ const CartContext = ({children}) => {
     }
 
     const addItem = (product, totalAmount) => {
-        const productAdded = {product, amount: totalAmount}
+        let productAdded = {product, amount: totalAmount}
         if(isInCart(product.id)){
             alert('Este producto ya fue añadido al carrito')
         } else {
-            setCartContent([...cartContent, { ...productAdded}])
+            setCartContent([...cartContent, productAdded])
         }
     }
 
@@ -31,7 +31,7 @@ const CartContext = ({children}) => {
     }
 
     const contextValue = {
-        cartItems: [],
+        cartContent: [],
         product,
         totalAmount,
         totalAmountOfItems: 0,

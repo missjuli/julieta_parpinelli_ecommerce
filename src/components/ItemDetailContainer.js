@@ -8,7 +8,7 @@ import { context } from "./CartContext";
 import { db } from "../Firebase"
 import { where, query , collection, doc, getDocs } from "firebase/firestore"
 
-const ItemDetailContainer = (prop) => {
+const ItemDetailContainer = () => {
     const [product, setProduct] = useState([])
     const [itemsOnCart, setItemsOnCart] = useState(false);
     const [loading, setLoading] = useState(true)
@@ -17,9 +17,9 @@ const ItemDetailContainer = (prop) => {
 
 useEffect(()=>{
     const productCollection = collection(db, "products")
-    const queryProductById = query(productCollection,where("id", "==", id))
+    const queryProductById = query(productCollection,where("id", "==", Number(id)))
     const documents = getDocs(queryProductById)
-    
+
     documents
     .then((data)=> setProduct(data.docs.map(doc=>doc.data())))
     .catch((error)=> alert(error))
@@ -27,7 +27,7 @@ useEffect(()=>{
 }, [id])
 
     const onAdd = (counter) => {
-        addItem(product, counter)
+        addItem(product[0], counter)
         setItemsOnCart(true)
     }
 
@@ -44,7 +44,7 @@ useEffect(()=>{
                                 Ir al carrito de compras
                                 </Button>
                             </NavLink>
-                        :   <ItemCount id={product.id} startingPoint={product.startingPoint} stock={product.stock} onAdd={onAdd}/>
+                        :   <ItemCount id={product[0].id} startingPoint={product[0].startingPoint} stock={product[0].stock} onAdd={()=>onAdd(id)}/>
                     }
                 </div>
             </div>
