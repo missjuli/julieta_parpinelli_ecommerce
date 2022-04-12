@@ -20,7 +20,7 @@ const ItemListContainer = () => {
             .finally(() => setLoading(false))
         } else {
             const productCollection = collection(db, "products")
-            const queryProductsByCategoryId = query(productCollection,where("categoryId", "==", categoryId))
+            const queryProductsByCategoryId = query(productCollection,where("categoryId", "==", Number(categoryId)))
             const documentsFiltered = getDocs(queryProductsByCategoryId)
             
             documentsFiltered
@@ -28,7 +28,7 @@ const ItemListContainer = () => {
             .catch((error)=> alert(error))
             .finally(() => setLoading(false))
         }
-    }, [categoryId])
+    }, [Number(categoryId)])
 
     return (
         <>
