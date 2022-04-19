@@ -1,6 +1,6 @@
 const Logo = () => {
     return  (
-        <img src="../assets/jazaar.png" alt="." className="logo"/>
+        <img src="../assets/jazaar.png" alt="logo" className="logo"/>
     )
 }
 

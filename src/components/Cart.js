@@ -3,14 +3,13 @@ import { useContext } from "react"
 import { Button } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import { db } from "../Firebase";
-import { context } from "./CartContext"
+import CartContext, { context } from "./CartContext"
 
 const Cart = () => {
-    const contextResponse = useContext(context)
-    const itemsOnCart = contextResponse?.cartContent
+    const contextResponse = useContext(CartContext)
+    const itemsOnCart = contextResponse?.cartItems
     const totalItems = contextResponse?.totalAmountOfItems
     
-    const {removeItem} = useContext(context)
     const handleClick = () => {
         const data = {
             buyer: {
@@ -22,35 +21,42 @@ const Cart = () => {
             date: serverTimestamp(),
             totalItems: totalItems,
         }
+        alert('Se ha efectuado la compra exitosamente')
         const orderCollection = collection(db, "order")
         const itemsOrder = addDoc(orderCollection, data)
     }
-    
-    console.log(itemsOnCart)
-    
+
+    const {cartContent, removeItem} = useContext(context)
 
     return (
         <>
             <h5 className="mx-5">Cart Items</h5>
-            {itemsOnCart ?
-                itemsOnCart.map(item => (
-                    <div key={item.product[0].id}>
-                        <h2> {item.product[0].itemName} </h2>
-                        <p> {item.product[0].description} </p>
-                        <p> $ {item.product[0].price} - {item.product[0].totalAmount} unidades</p>
-                        <p> Total: $ {item.product[0].price * item.product[0].totalAmount} </p>
-                        <button onClick={()=> removeItem(item.product[0].id)}>Delete Items</button>
+            {cartContent.length > 0 ?
+                cartContent.map(item => (
+                    <div key={item.product.id} className="cart-item">
+                        <h2> {item.product.itemName} </h2>
+                        <p> {item.product.description} </p>
+                        <p> $ {item.product.price} - {item.amount} unidad(es)</p>
+                        <p> Total: $ {item.product.price * item.amount} </p>
+                        <Button onClick={()=> removeItem(item.product.id)}>Quitar del carrito</Button>
                     </div>
                 ))
-                :   <div>
+                :   <div className="cart-item">
                         <p> No se han agregado productos al carrito</p>
-                        <Link to={`/cart`} onClick={handleClick}>
+                        <Link to={`/`}>
                             <Button variant="primary mx-2 mt-2 text-black">
-                            Comprar
+                                Ver productos
                             </Button>
                         </Link>
                     </div>
                 }
+                <div>
+                    <Link to={`/cart`} onClick={handleClick}>
+                        <Button variant="btn btn-primary d-flex m-auto p-4 mt-2 text-black">
+                            Efectuar mi compra
+                        </Button>
+                    </Link>
+                </div>
         </>
     )
 }
