@@ -1,16 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
-import { Button } from 'react-bootstrap';
 
 const CartWidget = (prop) => {
+    const total = prop.startingPoint;
+    let sum = 0;
 
-    const [counter, setCounter] = useState(prop.startingPoint)
+    for (let item = 0; item < total.length; item++) {
+        sum += total[item];
+    }
 
     return (
         <>
             <FontAwesomeIcon icon={faCartShopping} />
-            <p> {counter} </p>
+            <p> {sum} </p>
         </>
     )
 }

@@ -2,9 +2,10 @@ import { useContext, useState } from "react"
 import { Button } from 'react-bootstrap';
 import { context } from "./CartContext";
 
-const ItemCount = ({stock, startingPoint, id, onAdd}) => {
+const ItemCount = ({stock, startingPoint, product, onAdd}) => {
     const [counter, setCounter] = useState(startingPoint)
     const [counterStock] = useState(stock)
+    const [productSelected] = useState(product)
     const {addItem} = useContext(context)
 
     const addItemToCounter = () => {
@@ -19,11 +20,6 @@ const ItemCount = ({stock, startingPoint, id, onAdd}) => {
         }
     }
 
-    // const addToCart = (counter) => {
-    //     onAdd(counter)
-    //     addItem(id, counter)
-    // }
-
     return (
         <>
             <div>
@@ -35,7 +31,7 @@ const ItemCount = ({stock, startingPoint, id, onAdd}) => {
             <Button variant="outline-primary mx-2" onClick={deleteItem}>
                 Eliminar una unidad
             </Button>
-            <Button variant="outline-primary mx-2 text-black" onClick={()=>onAdd(counter)}>
+            <Button variant="outline-primary mx-2 text-black" onClick={()=>addItem(productSelected, counter)}>
                 Agregar al carrito
             </Button>
         </>

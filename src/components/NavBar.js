@@ -1,9 +1,16 @@
+import { useContext } from "react"
 import NavbarItem from "./NavBarItem"
-import Logo from "./Logo"
+import { NavLink } from "react-router-dom"
 import CartWidget from "./CartWidget"
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import { context } from "./CartContext"
 
 const NavBar = () => {
+    const {cartContent} = useContext(context)
+    var itemCounter = 0
+    var total = 0
+    const cartTotalAmount = cartContent.map((item)=> item.amount + itemCounter)
+
     const categories = [
         {name:"Cartucheras", categoryId: "1"},
         {name:"Telas y diseños disponibles", categoryId: "2"},
@@ -15,7 +22,7 @@ const NavBar = () => {
             <Navbar variant="light">
                 <Container>
                     <Navbar.Brand href="/" className="d-flex">
-                        <img src="../assets/jazaar.png" alt="." className="logo"/>
+                        <img src="../assets/jazaar.png" alt="logo" className="logo"/>
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <div className="navbar">
@@ -24,7 +31,9 @@ const NavBar = () => {
                             ))}
                         </div>
                         <div className="d-flex mt-4">
-                            <CartWidget startingPoint={0}/>
+                        <NavLink to={`/cart`} className="d-flex">
+                            <CartWidget startingPoint={cartTotalAmount ? cartTotalAmount : 0}/>
+                        </NavLink>
                         </div>
                     </Nav>
                 </Container>

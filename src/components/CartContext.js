@@ -7,6 +7,7 @@ const CartContext = ({children}) => {
     const [cartContent, setCartContent] = useState([])
     const [totalAmount, setTotalAmount] = useState(0)
     const [product, setProduct] = useState( )
+    const [itemsOnCart, setItemsOnCart] = useState(false);
     
     const removeItem = (id) => {
         setCartContent(cartContent.filter(p => p.product.id !== id))
@@ -14,10 +15,12 @@ const CartContext = ({children}) => {
 
     const addItem = (product, totalAmount) => {
         let productAdded = {product, amount: totalAmount}
+        setItemsOnCart(true)
         if(isInCart(product.id)){
             alert('Este producto ya fue añadido al carrito')
         } else {
             setCartContent([...cartContent, productAdded])
+            alert(`${totalAmount} unidades de ${product.itemName} se han agregado al carrito` )
         }
     }
 
@@ -31,7 +34,7 @@ const CartContext = ({children}) => {
     }
 
     const contextValue = {
-        cartContent: [],
+        cartContent,
         product,
         totalAmount,
         totalAmountOfItems: 0,

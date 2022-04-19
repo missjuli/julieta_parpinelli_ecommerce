@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 * {
-    // font-family: 'Varela Round';
     color: black;
     background: #e2e2e2 !important;
     font-family: 'Varela Round', sans-serif !important;
@@ -53,4 +52,21 @@ a {
     max-height: 150px;
     display: flex;
     margin: auto;
+}
+
+.card-img {
+    margin: auto;
+    display: flex;
+    border-radius: 100% !important;
+    margin-bottom: 50px;
+    width: 100px !important;
+    height: 100px;
+}
+
+.cart-item {
+    margin: 50px;
+    padding: 50px;
+    max-width: 500px;
+    border: solid 0.5px #c7c7c7;
+    border-radius: 10px;
 }
