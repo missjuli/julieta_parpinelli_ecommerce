@@ -14,7 +14,7 @@ En este proyecto, el usuario podrá visualizar los productos disponibles al ingr
 
 ### Acceder al video sobre el flujo del proyecto
 
-[Video](https://facebook.github.io/create-react-app/docs/running-tests)
+[Video](https://drive.google.com/file/d/1uEG8niZhz6s7-_edN978fvVW12zy1ZK5/view?usp=sharing)
 
 ### Pasos de uso para devs
 
