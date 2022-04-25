@@ -1,5 +1,7 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useContext } from "react"
+import { useNavigate } from 'react-router';
+import { useContext } from "react";
 import { Button } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import { db } from "../Firebase";
@@ -8,25 +10,29 @@ import CartContext, { context } from "./CartContext"
 const Cart = () => {
     const contextResponse = useContext(CartContext)
     const itemsOnCart = contextResponse?.cartItems
-    const totalItems = contextResponse?.totalAmountOfItems
-    
+    const navigate = useNavigate()
+
     const handleClick = () => {
         const data = {
             buyer: {
-                firstName: '',
-                phoneNumber: '',
-                email: '',
+                firstName: 'Nombre',
+                phoneNumber: '34155555',
+                email: 'email@gmail.com',
             },
-            items: itemsOnCart,
+            items: cartContent,
             date: serverTimestamp(),
-            totalItems: totalItems,
         }
-        alert('Se ha efectuado la compra exitosamente')
-        const orderCollection = collection(db, "order")
-        const itemsOrder = addDoc(orderCollection, data)
+       
+        addDoc(collection(db, "order"), data)
+        .then((res)=>{
+            alert(`¡Muchas gracias por tu compra! Tu número de órden es ${res.id}`)
+            clear()
+            navigate("/")
+        })
+        .catch((error)=>alert(error))
     }
 
-    const {cartContent, removeItem} = useContext(context)
+    const {cartContent, removeItem, clear} = useContext(context)
 
     return (
         <>
@@ -51,11 +57,9 @@ const Cart = () => {
                     </div>
                 }
                 <div>
-                    <Link to={`/cart`} onClick={handleClick}>
-                        <Button variant="btn btn-primary d-flex m-auto p-4 mt-2 text-black">
-                            Efectuar mi compra
-                        </Button>
-                    </Link>
+                    <Button variant="btn btn-primary d-flex m-auto p-4 mt-2 text-black" onClick={handleClick}>
+                        Efectuar mi compra
+                    </Button>
                 </div>
         </>
     )
