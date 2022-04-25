@@ -29,7 +29,7 @@ const CartContext = ({children}) => {
     }
 
     const isInCart = (id) => {
-        const itemOnCart = cartContent.find((cartItem)=> cartItem.id === id)
+        const itemOnCart = cartContent.find((cartItem)=> cartItem.product.id === id)
         return itemOnCart ? true : false
     }
 
